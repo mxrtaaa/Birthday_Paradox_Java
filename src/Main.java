@@ -1,25 +1,66 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
+import java.util.Scanner;
 
-import java.util.Objects;
+public class Main {
+    public static void main(String[] args) {
+        System.out.print("Wpisz nazwę planety, dla której przeprowadzić test: ");
+        Scanner in  = new Scanner(System.in);
 
-final class Main {
-    void main(String[] args) {
-        Birthdays birthdays = new Birthdays(2);
+        int planetNumber = -1;
+        try{
+            String planetName =  in.nextLine();
+            SolarSystem solarSystem = new SolarSystem();
+
+            for (int i = 0; i < solarSystem.planetNames.length; i++){
+                if(planetName.compareToIgnoreCase(solarSystem.planetNames[i])==0){
+                    planetNumber = i;
+                    break;
+                }
+            }
+            if(planetNumber == -1){
+                System.out.println("Taka planeta nie istnieje!");
+                return;
+            }
+        } catch(Exception e){
+            System.out.println("Wystąpił błąd!");
+            return;
+        }
+
+        Planet planet = new Planet(planetNumber);
+        Birthdays birthdays = new Birthdays(planet);
+
         System.out.println("Najmniejsza liczba osób, które spełniają warunek: " + birthdays.birthdayParadox());
     }
 
-    class Birthdays {
-        int planet;
-        int daysInYear;
+    static class SolarSystem {
+        protected String [] planetNames = new String [] {"Merkury", "Wenus", "Ziemia", "Mars", "Jowisz", "Saturn", "Uran", "Neptun"};
+        protected int [] planetsDaysInYear = new int [] {88, 225, 365, 687, 4333, 10756, 30708, 60223};
+
+        SolarSystem(){}
+    }
+
+    static class Planet extends SolarSystem {
+        protected String planetName;
+        protected int planetNumber;
+        protected int daysInYear;
+
+        Planet(){}
+        Planet(int planetNumber){
+            this.planetNumber = planetNumber;
+            if (planetNumber >= 0 && planetNumber < planetNames.length) {
+                this.planetName = this.planetNames[planetNumber];
+                this.daysInYear = this.planetsDaysInYear[planetNumber];
+            }
+        }
+    }
+
+    static class Birthdays{
+        Planet planet;
 
         int[] generateRandomBirthdays(int n) {
             int[] birthdays = new int[n];
 
             for(int i = 0; i < n; ++i) {
-                birthdays[i] = (int)((double)this.daysInYear * Math.random()) + 1;
+                birthdays[i] = (int)((double)this.planet.daysInYear * Math.random()) + 1;
             }
 
             return birthdays;
@@ -36,14 +77,12 @@ final class Main {
                     int k;
                     for(k = j + 1; k < n; ++k) {
                         if (birthdays[k] == birthdays[j]) {
-                            ++areSame;
+                            areSame++;
                             break;
                         }
                     }
-
-                    if (k < n) {
+                    if (k < n)
                         break;
-                    }
                 }
             }
 
@@ -56,31 +95,16 @@ final class Main {
             double chances;
             do {
                 chances = this.sameBirthdayChances(n);
-                ++n;
-            } while(chances < (double)0.5F);
+                n++;
+            } while(chances < 0.5);
 
             return n - 1;
         }
 
-        Birthdays() {
-            this.planet = 2;
-            this.daysInYear = 365;
-        }
+        Birthdays() {}
 
-        Birthdays(int planet) {
+        Birthdays(Planet planet) {
             this.planet = planet;
-            switch (planet) {
-                case 0 -> this.daysInYear = 88;
-                case 1 -> this.daysInYear = 225;
-                case 2 -> this.daysInYear = 365;
-                case 3 -> this.daysInYear = 687;
-                case 4 -> this.daysInYear = 4333;
-                case 5 -> this.daysInYear = 10756;
-                case 6 -> this.daysInYear = 30708;
-                case 7 -> this.daysInYear = 60223;
-                default -> this.daysInYear = 365;
-            }
-
         }
     }
 }
