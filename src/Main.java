@@ -30,81 +30,80 @@ public class Main {
 
         System.out.println("Najmniejsza liczba osób, które spełniają warunek: " + birthdays.birthdayParadox());
     }
+}
+class SolarSystem {
+    protected String [] planetNames = new String [] {"Merkury", "Wenus", "Ziemia", "Mars", "Jowisz", "Saturn", "Uran", "Neptun"};
+    protected int [] planetsDaysInYear = new int [] {88, 225, 365, 687, 4333, 10756, 30708, 60223};
 
-    static class SolarSystem {
-        protected String [] planetNames = new String [] {"Merkury", "Wenus", "Ziemia", "Mars", "Jowisz", "Saturn", "Uran", "Neptun"};
-        protected int [] planetsDaysInYear = new int [] {88, 225, 365, 687, 4333, 10756, 30708, 60223};
+    SolarSystem(){}
+}
 
-        SolarSystem(){}
-    }
+class Planet extends SolarSystem {
+    protected String planetName;
+    protected int planetNumber;
+    protected int daysInYear;
 
-    static class Planet extends SolarSystem {
-        protected String planetName;
-        protected int planetNumber;
-        protected int daysInYear;
-
-        Planet(){}
-        Planet(int planetNumber){
-            this.planetNumber = planetNumber;
-            if (planetNumber >= 0 && planetNumber < planetNames.length) {
-                this.planetName = this.planetNames[planetNumber];
-                this.daysInYear = this.planetsDaysInYear[planetNumber];
-            }
+    Planet(){}
+    Planet(int planetNumber){
+        this.planetNumber = planetNumber;
+        if (planetNumber >= 0 && planetNumber < planetNames.length) {
+            this.planetName = this.planetNames[planetNumber];
+            this.daysInYear = this.planetsDaysInYear[planetNumber];
         }
     }
+}
 
-    static class Birthdays{
-        Planet planet;
+class Birthdays{
+    Planet planet;
 
-        int[] generateRandomBirthdays(int n) {
-            int[] birthdays = new int[n];
+    int[] generateRandomBirthdays(int n) {
+        int[] birthdays = new int[n];
 
-            for(int i = 0; i < n; ++i) {
-                birthdays[i] = (int)((double)this.planet.daysInYear * Math.random()) + 1;
-            }
-
-            return birthdays;
+        for(int i = 0; i < n; ++i) {
+            birthdays[i] = (int)((double)this.planet.daysInYear * Math.random()) + 1;
         }
 
-        double sameBirthdayChances(int n) {
-            int tests = 20000;
-            int areSame = 0;
+        return birthdays;
+    }
 
-            for(int i = 0; i < tests; ++i) {
-                int[] birthdays = this.generateRandomBirthdays(n);
+    double sameBirthdayChances(int n) {
+        int tests = 20000;
+        int areSame = 0;
 
-                for(int j = 0; j < n - 1; ++j) {
-                    int k;
-                    for(k = j + 1; k < n; ++k) {
-                        if (birthdays[k] == birthdays[j]) {
-                            areSame++;
-                            break;
-                        }
-                    }
-                    if (k < n)
+        for(int i = 0; i < tests; ++i) {
+            int[] birthdays = this.generateRandomBirthdays(n);
+
+            for(int j = 0; j < n - 1; ++j) {
+                int k;
+                for(k = j + 1; k < n; ++k) {
+                    if (birthdays[k] == birthdays[j]) {
+                        areSame++;
                         break;
+                    }
                 }
+                if (k < n)
+                    break;
             }
-
-            return (double)areSame / (double)tests;
         }
 
-        int birthdayParadox() {
-            int n = 2;
+        return (double)areSame / (double)tests;
+    }
 
-            double chances;
-            do {
-                chances = this.sameBirthdayChances(n);
-                n++;
-            } while(chances < 0.5);
+    int birthdayParadox() {
+        int n = 2;
 
-            return n - 1;
-        }
+        double chances;
+        do {
+            chances = this.sameBirthdayChances(n);
+            n++;
+        } while(chances < 0.5);
 
-        Birthdays() {}
+        return n - 1;
+    }
 
-        Birthdays(Planet planet) {
-            this.planet = planet;
-        }
+    Birthdays() {}
+
+    Birthdays(Planet planet) {
+        this.planet = planet;
     }
 }
