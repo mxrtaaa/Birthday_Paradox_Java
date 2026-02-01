@@ -1,11 +1,15 @@
-Algorytmion 2013 zadanie 3
-https://algorytmion.ms.polsl.pl/storage/files/Zadania2013.pdf
+# Opis programu
+W klasycznym ujęciu, rozwiązanie problemu urodzin polega na znalezieniu najmniejszej liczby osób takiej, żeby prawdopodobieństwo znalezienia dwóch osób obchodzących urodziny tego samego dnia było równe co najmniej ½. Daty urodzin wybierane są 
+z rozkładem jednostajnym, nie uwzględnia się również lat przestępnych – urodzin 
+29 lutego. Paradoks polega na tym, że ta liczba jest zaskakująco mała – potrzeba jedynie 23 osób, aby spełniony był ten warunek.
+Przygotowany przeze mnie program rozszerza ten problem na wszystkie planety Układu Słonecznego – gdzie liczba dni w roku jest różna, a zatem najmniejsza liczba takich osób także się zmienia.
+Problem ma oczywiście dokładne rozwiązanie opisane wzorem, jednak program ma je przetestować metodą eksperymentalną – generuje daty urodzin i sprawdza zgodność 
+z warunkami.
+Projekt zrealizowany jest w pełni w języku Java, a interakcja z użytkownikiem odbywa się przez konsolę.
 
-Napisz program rozwiązujący eksperymentalnie zagadnienie paradoksu urodzin.
-Zadanie to polega na znalezieniu takiej liczby osób, aby szanse na to,
-że wśród nich znajdą się dwie osoby urodzone w tym samym dniu roku były większe,
-niż szanse na to, że takich dwóch osób nie ma. Samego roku nie bierzemy pod uwagę.
-Zadanie to można zrealizować generując losową próbkę n osób (a dokładniej dat ich urodzin)
-i po jej wygenerowaniu sprawdzając wystąpienie pary. Aby doświadczenie dało miarodajne wyniki,
-dla każdego n należy przeprowadzić wiele prób (np. 20000).
-Postępując w ten sposób znajdź najmniejszą liczbę naturalną spełniającą warunki zadania.
+# Wejście programu
+Przy starcie program prosi użytkownika o wpisanie nazwy planety, dla której ma zostać obliczony problem urodzin. Użytkownik podaje polską nazwę dowolnej planety 
+w Układzie Słonecznym, przy czym wielkość liter nie ma znaczenia.
+
+# Wynik programu
+Program dla wybranej planety oblicza najmniejszą liczbę osób spełniającą warunek problemu i wypisuje ją na ekran.
