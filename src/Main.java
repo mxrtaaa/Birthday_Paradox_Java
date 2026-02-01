@@ -54,9 +54,9 @@ class Planet extends SolarSystem {
 }
 
 class Birthdays{
-    Planet planet;
+    private Planet planet;
 
-    int[] generateRandomBirthdays(int n) {
+    public int[] generateRandomBirthdays(int n) {
         int[] birthdays = new int[n];
 
         for(int i = 0; i < n; ++i) {
@@ -66,7 +66,7 @@ class Birthdays{
         return birthdays;
     }
 
-    double sameBirthdayChances(int n) {
+    private double sameBirthdayChances(int n) {
         int tests = 20000;
         int areSame = 0;
 
@@ -89,7 +89,7 @@ class Birthdays{
         return (double)areSame / (double)tests;
     }
 
-    int birthdayParadox() {
+    public int birthdayParadox() {
         int n = 2;
 
         double chances;
